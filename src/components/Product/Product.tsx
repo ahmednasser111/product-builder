@@ -14,13 +14,9 @@ interface IProps {
 function Product({ product }: IProps) {
 	const { id, title, price, description, imgUrl, category, colors } = product;
 	return (
-		<div className="rounded-md border-2 p-5">
-			<Image
-				src={imgUrl}
-				alt={title}
-				className="rounded-md w-full max-w-full h-60"
-			/>
-			<h3 className="my-5">{title}</h3>
+		<div className="rounded-md border-2 p-3">
+			<Image src={imgUrl} alt={title} className="rounded-md" />
+			<h3 className="my-5 text-xl font-bold">{title}</h3>
 			<p className="my-5">{description}</p>
 			<div className="flex items-center gap-2 my-5">
 				{colors.map((c, i) => (

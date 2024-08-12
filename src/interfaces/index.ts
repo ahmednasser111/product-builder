@@ -1,13 +1,26 @@
 export interface IProduct {
-	id: string;
+	id?: string;
 	title: string;
-	price: number;
+	price: string;
 	description: string;
-	imgUrl: string;
+	imgURL: string;
 	category: ICategory;
 	colors: string[];
 }
 export interface ICategory {
 	name: string;
-	imgUrl: string;
+	imgURL: string;
+}
+export interface IInputs {
+	id: string;
+	name: "title" | "description" | "price" | "imgURL";
+	label: string;
+	type: string;
+}
+
+export interface IProductInputs {
+	title: string;
+	desc: string;
+	image: string;
+	price: string;
 }
