@@ -1,22 +1,24 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import Product from "./components/Product/Product";
 import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
 import MyModal from "./components/ui/MyModal";
 import FormInputs from "./data/FormInputs";
 import ProductList from "./data/ProductList";
-import { IProduct } from "./interfaces/index";
+import { IProduct, IValidation } from "./interfaces/index";
+import { productValidation } from "./validation/index";
 
 function App() {
 	function closeDialog() {
+		setProduct(defaultProduct);
+		setErrors(defaultErrors);
 		setIsOpen(false);
 	}
 	function changeHandler(e: ChangeEvent<HTMLInputElement>) {
 		let { name, value } = e.target;
 		setProduct({ ...product, [name]: value });
 	}
-	const [isOpen, setIsOpen] = useState(false);
-	const [product, setProduct] = useState<IProduct>({
+	const defaultProduct: IProduct = {
 		title: "",
 		description: "",
 		imgURL: "",
@@ -26,7 +28,16 @@ function App() {
 			name: "",
 			imgURL: "",
 		},
-	});
+	};
+	const defaultErrors: IValidation = {
+		title: "",
+		description: "",
+		imgURL: "",
+		price: "",
+	};
+	const [isOpen, setIsOpen] = useState(false);
+	const [product, setProduct] = useState<IProduct>(defaultProduct);
+	const [errors, setErrors] = useState<IValidation>(defaultErrors);
 	return (
 		<main className="container p-2 ">
 			<header className="flex justify-between items-center p-4 bg-gray-100 border-b border-gray-200">
@@ -39,7 +50,21 @@ function App() {
 					Add
 				</Button>
 				<MyModal isOpen={isOpen} onClose={setIsOpen} title="Add Product">
-					<form className="flex flex-col">
+					<form
+						className="flex flex-col"
+						onSubmit={(e: FormEvent<HTMLFormElement>) => {
+							e.preventDefault();
+							const errors = productValidation({
+								title: product.title,
+								description: product.description,
+								imgURL: product.imgURL,
+								price: product.price,
+							});
+							setErrors(errors);
+
+							if (!Object.values(errors).every((error) => !error)) return;
+							console.log("submit");
+						}}>
 						{FormInputs.map((input) => (
 							<label
 								key={input.id}
@@ -53,6 +78,11 @@ function App() {
 									value={product[input.name]}
 									onChange={changeHandler}
 								/>
+								{errors[input.name] && (
+									<div className="text-red-600 text-xs">
+										{errors[input.name]}
+									</div>
+								)}
 							</label>
 						))}
 						<div className="flex gap-3">

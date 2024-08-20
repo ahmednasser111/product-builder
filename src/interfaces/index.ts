@@ -7,6 +7,12 @@ export interface IProduct {
 	category: ICategory;
 	colors: string[];
 }
+export interface IValidation {
+	title: string;
+	price: string;
+	description: string;
+	imgURL: string;
+}
 export interface ICategory {
 	name: string;
 	imgURL: string;

@@ -15,7 +15,7 @@ const FormInputs: IInputs[] = [
 	},
 	{
 		id: "image",
-		name: "imageURL",
+		name: "imgURL",
 		label: "Product Image URL",
 		type: "text",
 	},
