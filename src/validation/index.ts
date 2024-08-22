@@ -31,7 +31,7 @@ export const productValidation = (product: IValidation): IValidation => {
 		errors.price = "Product price must be a number";
 	}
 
-	if (!description) {
+	if (!description || description.length < 10 || description.length > 80) {
 		errors.description = "Product description must be provided";
 	}
 

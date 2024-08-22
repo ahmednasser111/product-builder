@@ -1,6 +1,7 @@
 import { IProduct } from "../../interfaces/index";
 import Image from "../Image/Image";
 import Button from "../ui/Button";
+import ColorCircle from "../ui/ColorCircle";
 interface IProps {
 	product: IProduct;
 }
@@ -12,24 +13,21 @@ interface IProps {
  * @returns {JSX.Element} The rendered Product component.
  */
 function Product({ product }: IProps) {
-	const { id, title, price, description, imgUrl, category, colors } = product;
+	const { id, title, price, description, imgURL, category, colors } = product;
 	return (
-		<div className="rounded-md border-2 p-3">
-			<Image src={imgUrl} alt={title} className="rounded-md" />
+		<div className="rounded-md border-2 p-3 bg-neutral-100">
+			<Image src={imgURL} alt={title} className="rounded-md" />
 			<h3 className="my-5 text-xl font-bold">{title}</h3>
 			<p className="my-5">{description}</p>
 			<div className="flex items-center gap-2 my-5">
 				{colors.map((c, i) => (
-					<span
-						key={i}
-						style={{ backgroundColor: c }}
-						className="rounded-full w-5 h-5"></span>
+					<ColorCircle color={c} key={i} />
 				))}
 			</div>
 			<div className="flex justify-between items-center">
 				<span>${price}</span>
 				<Image
-					src={category.imgUrl}
+					src={category.imgURL}
 					alt={category.name}
 					className="rounded-full w-8 h-8"
 				/>

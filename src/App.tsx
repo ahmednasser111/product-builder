@@ -1,8 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import Product from "./components/Product/Product";
 import Button from "./components/ui/Button";
+import ColorCircle from "./components/ui/ColorCircle";
 import Input from "./components/ui/Input";
 import MyModal from "./components/ui/MyModal";
+import Colors from "./data/Colors";
 import FormInputs from "./data/FormInputs";
 import ProductList from "./data/ProductList";
 import { IProduct, IValidation } from "./interfaces/index";
@@ -17,6 +19,7 @@ function App() {
 	function changeHandler(e: ChangeEvent<HTMLInputElement>) {
 		let { name, value } = e.target;
 		setProduct({ ...product, [name]: value });
+		setErrors({ ...errors, [name]: "" });
 	}
 	const defaultProduct: IProduct = {
 		title: "",
@@ -60,10 +63,12 @@ function App() {
 								imgURL: product.imgURL,
 								price: product.price,
 							});
-							setErrors(errors);
 
-							if (!Object.values(errors).every((error) => !error)) return;
-							console.log("submit");
+							if (!Object.values(errors).every((error) => !error)) {
+								setErrors(errors);
+								return;
+							}
+							// console.log("submit");
 						}}>
 						{FormInputs.map((input) => (
 							<label
@@ -79,13 +84,37 @@ function App() {
 									onChange={changeHandler}
 								/>
 								{errors[input.name] && (
-									<div className="text-red-600 text-xs">
+									<div className="text-red-700 text-sm font-semibold">
 										{errors[input.name]}
 									</div>
 								)}
 							</label>
 						))}
-						<div className="flex gap-3">
+
+						<div className="flex items-center gap-2 my-5">
+							{Object.keys(Colors).map((c) => (
+								<ColorCircle
+									color={c}
+									key={c}
+									product={product}
+									setProduct={setProduct}
+								/>
+							))}
+						</div>
+						<div className="flex gap-2 flex-wrap">
+							{product.colors.map((c) => (
+								<span
+									key={c}
+									className="p-2 rounded-md text-white"
+									style={{
+										backgroundColor: c,
+									}}>
+									{Colors[c]}
+								</span>
+							))}
+						</div>
+
+						<div className="flex gap-3 mt-5">
 							<Button
 								className="bg-emerald-600 text-white font-medium py-2 px-4 rounded hover:bg-emerald-700 transition duration-200"
 								width="flex-1">
@@ -109,8 +138,8 @@ function App() {
 			</header>
 
 			<div className="container p-2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
-				{ProductList.map((product, i) => (
-					<Product product={product} key={i} />
+				{ProductList.map((product) => (
+					<Product product={product} key={product.id} />
 				))}
 			</div>
 		</main>

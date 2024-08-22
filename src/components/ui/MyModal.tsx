@@ -18,7 +18,7 @@ export default function MyModal({ isOpen, onClose, title, children }: IProps) {
 		<Dialog open={isOpen} onClose={onClose} className="relative z-10">
 			<div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 			<div className="fixed inset-0 flex items-center justify-center p-4">
-				<DialogPanel className="w-full max-w-md rounded-xl bg-white p-6 backdrop-blur-md">
+				<DialogPanel className="w-full max-w-md rounded-xl p-6 backdrop-blur-md bg-neutral-100">
 					<DialogTitle
 						as="h2"
 						className="text-lg font-medium text-gray-900 my-3">
