@@ -1,8 +1,8 @@
 import { IProduct } from "../interfaces/index";
-
+import { v4 as uuidv4 } from "uuid";
 const productList: IProduct[] = [
 	{
-		id: "1",
+		id: uuidv4(),
 		title: "Stylish T-Shirt",
 		price: "29.99",
 		description:
@@ -17,7 +17,7 @@ const productList: IProduct[] = [
 		},
 	},
 	{
-		id: "2",
+		id: uuidv4(),
 		title: "Wireless Headphones",
 		price: "89.99",
 		description: "High-quality wireless headphones with noise cancellation.",
@@ -31,7 +31,7 @@ const productList: IProduct[] = [
 		},
 	},
 	{
-		id: "3",
+		id: uuidv4(),
 		title: "Running Shoes",
 		price: "69.99",
 		description: "Lightweight and comfortable running shoes for all terrains.",
@@ -45,7 +45,7 @@ const productList: IProduct[] = [
 		},
 	},
 	{
-		id: "4",
+		id: uuidv4(),
 		title: "Smart Watch",
 		price: "199.99",
 		description: "A sleek smart watch with fitness tracking and notifications.",
@@ -59,7 +59,7 @@ const productList: IProduct[] = [
 		},
 	},
 	{
-		id: "5",
+		id: uuidv4(),
 		title: "Leather Jacket",
 		price: "149.99",
 		description: "A classic leather jacket with a modern fit.",
@@ -73,7 +73,7 @@ const productList: IProduct[] = [
 		},
 	},
 	{
-		id: "6",
+		id: uuidv4(),
 		title: "Bluetooth Speaker",
 		price: "59.99",
 		description: "Portable Bluetooth speaker with high-quality sound.",
@@ -87,7 +87,7 @@ const productList: IProduct[] = [
 		},
 	},
 	{
-		id: "7",
+		id: uuidv4(),
 		title: "Digital Camera",
 		price: "499.99",
 		description: "High-resolution digital camera with optical zoom.",
@@ -101,7 +101,7 @@ const productList: IProduct[] = [
 		},
 	},
 	{
-		id: "8",
+		id: uuidv4(),
 		title: "Backpack",
 		price: "39.99",
 		description: "Durable backpack with multiple compartments.",
@@ -115,7 +115,7 @@ const productList: IProduct[] = [
 		},
 	},
 	{
-		id: "9",
+		id: uuidv4(),
 		title: "Sunglasses",
 		price: "29.99",
 		description: "Stylish sunglasses with UV protection.",
@@ -129,7 +129,7 @@ const productList: IProduct[] = [
 		},
 	},
 	{
-		id: "10",
+		id: uuidv4(),
 		title: "Fitness Tracker",
 		price: "79.99",
 		description:

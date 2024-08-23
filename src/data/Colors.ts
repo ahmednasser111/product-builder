@@ -1,13 +1,10 @@
 const Colors = {
-	"#fff": "white",
 	"#000": "black",
-	"#ff0000": "red",
-	"#00ff00": "green",
-	"#0000ff": "blue",
-	"#ffff00": "yellow",
-	"#800080": "purple",
-	"#ffa500": "orange",
-	"#ffc0cb": "pink",
-	"#808080": "gray",
+	"#003082": "indigo",
+	"#8b0000": "red",
+	"#006400": "green",
+	"#5d0037": "brown",
+	"#2b1b17": "sienna",
 };
+
 export default Colors;

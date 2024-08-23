@@ -9,6 +9,7 @@ import FormInputs from "./data/FormInputs";
 import ProductList from "./data/ProductList";
 import { IProduct, IValidation } from "./interfaces/index";
 import { productValidation } from "./validation/index";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
 	function closeDialog() {
@@ -40,6 +41,7 @@ function App() {
 	};
 	const [isOpen, setIsOpen] = useState(false);
 	const [product, setProduct] = useState<IProduct>(defaultProduct);
+	const [products, setProducts] = useState<IProduct[]>(ProductList);
 	const [errors, setErrors] = useState<IValidation>(defaultErrors);
 	return (
 		<main className="container p-2 ">
@@ -68,7 +70,10 @@ function App() {
 								setErrors(errors);
 								return;
 							}
-							// console.log("submit");
+
+							// submit
+							setProducts([{ ...product, id: uuidv4() }, ...products]);
+							closeDialog();
 						}}>
 						{FormInputs.map((input) => (
 							<label
@@ -121,12 +126,6 @@ function App() {
 								Submit
 							</Button>
 							<Button
-								className="bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700 transition duration-200"
-								width="flex-1"
-								type="reset">
-								Reset
-							</Button>
-							<Button
 								className="bg-red-600 text-white font-medium py-2 px-4 rounded hover:bg-red-700 transition duration-200"
 								width="flex-1"
 								onClick={closeDialog}>
@@ -138,7 +137,7 @@ function App() {
 			</header>
 
 			<div className="container p-2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
-				{ProductList.map((product) => (
+				{products.map((product) => (
 					<Product product={product} key={product.id} />
 				))}
 			</div>
