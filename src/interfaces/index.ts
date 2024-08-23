@@ -12,8 +12,10 @@ export interface IValidation {
 	price: string;
 	description: string;
 	imgURL: string;
+	colors: string[];
 }
 export interface ICategory {
+	id: string;
 	name: string;
 	imgURL: string;
 }

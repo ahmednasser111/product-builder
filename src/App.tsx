@@ -10,6 +10,7 @@ import ProductList from "./data/ProductList";
 import { IProduct, IValidation } from "./interfaces/index";
 import { productValidation } from "./validation/index";
 import { v4 as uuidv4 } from "uuid";
+import Select from "./components/ui/Select";
 
 function App() {
 	function closeDialog() {
@@ -29,20 +30,22 @@ function App() {
 		price: "",
 		colors: [],
 		category: {
+			id: uuidv4(),
 			name: "",
 			imgURL: "",
 		},
 	};
-	const defaultErrors: IValidation = {
+	const defaultErrors = {
 		title: "",
 		description: "",
 		imgURL: "",
 		price: "",
+		colors: "",
 	};
 	const [isOpen, setIsOpen] = useState(false);
 	const [product, setProduct] = useState<IProduct>(defaultProduct);
 	const [products, setProducts] = useState<IProduct[]>(ProductList);
-	const [errors, setErrors] = useState<IValidation>(defaultErrors);
+	const [errors, setErrors] = useState(defaultErrors);
 	return (
 		<main className="container p-2 ">
 			<header className="flex justify-between items-center p-4 bg-gray-100 border-b border-gray-200">
@@ -64,6 +67,7 @@ function App() {
 								description: product.description,
 								imgURL: product.imgURL,
 								price: product.price,
+								colors: product.colors,
 							});
 
 							if (!Object.values(errors).every((error) => !error)) {
@@ -95,7 +99,7 @@ function App() {
 								)}
 							</label>
 						))}
-
+						<Select />
 						<div className="flex items-center gap-2 my-5">
 							{Object.keys(Colors).map((c) => (
 								<ColorCircle
@@ -106,6 +110,11 @@ function App() {
 								/>
 							))}
 						</div>
+						{errors.colors && (
+							<div className="text-red-700 text-sm font-semibold">
+								{errors.colors}
+							</div>
+						)}
 						<div className="flex gap-2 flex-wrap">
 							{product.colors.map((c) => (
 								<span
