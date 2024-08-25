@@ -51,7 +51,7 @@ const productList: IProduct[] = [
 		id: uuidv4(),
 		title: "Smart Watch",
 		price: "199.99",
-		description: "A sleek smart watch with fitness tracking and notifications.",
+		description: "A sleek smart watch with fitness tracking.",
 		imgURL:
 			"https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&h=400&auto=format&fit=crop&q=60",
 		colors: ["#000000", "#C0C0C0"],
@@ -141,8 +141,7 @@ const productList: IProduct[] = [
 		id: uuidv4(),
 		title: "Fitness Tracker",
 		price: "79.99",
-		description:
-			"A fitness tracker with heart rate monitoring and activity tracking.",
+		description: "A fitness tracker with heart rate monitoring.",
 		imgURL:
 			"https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400&h=400&auto=format&fit=crop&q=60",
 		colors: ["#000000", "#0000FF", "#800080"],

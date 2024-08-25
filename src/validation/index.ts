@@ -27,7 +27,7 @@ export const productValidation = (product: IValidation) => {
 	const price = product.price.trim();
 	const description = product.description.trim();
 
-	const imgUrlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp))$/i;
+	const imgUrlRegex = /^(https?:\/\/.*\.(.*))$/i;
 
 	if (!price || isNaN(Number(price))) {
 		errors.price = "Product price must be a number";

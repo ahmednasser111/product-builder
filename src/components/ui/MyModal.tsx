@@ -1,9 +1,4 @@
-import {
-	Dialog,
-	DialogPanel,
-	DialogTitle,
-	DialogDescription,
-} from "@headlessui/react";
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { ReactNode } from "react";
 
 interface IProps {
@@ -15,7 +10,10 @@ interface IProps {
 
 export default function MyModal({ isOpen, onClose, title, children }: IProps) {
 	return (
-		<Dialog open={isOpen} onClose={onClose} className="relative z-10">
+		<Dialog
+			open={isOpen}
+			onClose={onClose}
+			className="fixed z-10 backdrop-blur-sm inset-0">
 			<div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 			<div className="fixed inset-0 flex items-center justify-center p-4">
 				<DialogPanel className="w-full h-[97vh] overflow-y-auto max-w-md rounded-xl p-6 backdrop-blur-md bg-neutral-100">

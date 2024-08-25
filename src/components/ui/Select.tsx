@@ -9,10 +9,14 @@ import {
 } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import categoryList from "../../data/CategoryList";
+import { ICategory } from "../../interfaces/index";
 
-export default function Select() {
-	const [selected, setSelected] = useState(categoryList[0]);
+interface IProps {
+	selected: ICategory;
+	setSelected: (c: ICategory) => void;
+}
 
+export default function Select({ selected, setSelected }: IProps) {
 	return (
 		<Listbox value={selected} onChange={setSelected}>
 			<Label className="text-sm font-medium text-gray-700">Category</Label>
