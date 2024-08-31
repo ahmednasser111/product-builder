@@ -24,7 +24,7 @@ const productList: IProduct[] = [
 		description: "High-quality wireless headphones with noise cancellation.",
 		imgURL:
 			"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&auto=format&fit=crop&q=60",
-		colors: ["#000000", "#FFFFFF"],
+		colors: ["#000000"],
 		category: {
 			id: uuidv4(),
 			name: "Electronics",

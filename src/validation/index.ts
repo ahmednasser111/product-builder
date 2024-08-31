@@ -37,7 +37,7 @@ export const productValidation = (product: IValidation) => {
 		errors.description = "Product description must be provided";
 	}
 
-	if (!title || title.length < 10 || title.length > 80) {
+	if (!title || title.length < 8 || title.length > 80) {
 		errors.title = "Product title must be between 10 and 80 characters";
 	}
 
