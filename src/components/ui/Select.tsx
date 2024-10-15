@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { memo, useState } from "react";
 import {
 	Label,
 	Listbox,
@@ -16,7 +16,7 @@ interface IProps {
 	setSelected: (c: ICategory) => void;
 }
 
-export default function Select({ selected, setSelected }: IProps) {
+function Select({ selected, setSelected }: IProps) {
 	return (
 		<Listbox value={selected} onChange={setSelected}>
 			<Label className="text-sm font-medium text-gray-700">Category</Label>
@@ -67,3 +67,4 @@ export default function Select({ selected, setSelected }: IProps) {
 		</Listbox>
 	);
 }
+export default memo(Select);

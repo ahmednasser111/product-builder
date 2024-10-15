@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 interface IProps {}
 function Input({ ...rest }: IProps) {
 	return (
@@ -7,4 +9,4 @@ function Input({ ...rest }: IProps) {
 		/>
 	);
 }
-export default Input;
+export default memo(Input);

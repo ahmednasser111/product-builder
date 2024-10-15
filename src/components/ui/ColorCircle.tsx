@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { IProduct } from "../../interfaces/index";
 
 interface IProps {
@@ -21,4 +22,4 @@ function ColorCircle({ color, setProduct }: IProps) {
 			}}></span>
 	);
 }
-export default ColorCircle;
+export default memo(ColorCircle);

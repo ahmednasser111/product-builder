@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { ICategory, IProduct } from "../../interfaces/index";
 import Image from "../Image/Image";
@@ -109,4 +109,4 @@ function Product({
 	);
 }
 
-export default Product;
+export default memo(Product);
