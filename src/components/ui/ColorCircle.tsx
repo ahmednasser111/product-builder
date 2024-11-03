@@ -12,12 +12,14 @@ function ColorCircle({ color, setProduct }: IProps) {
 			className="rounded-full w-5 h-5 block cursor-pointer"
 			onClick={() => {
 				setProduct((prev: IProduct) => {
-					if (prev.colors.includes(color))
-						return { ...prev, colors: prev.colors.filter((c) => c !== color) };
-					return {
+					const colorExists = prev.colors.includes(color);
+					const newProduct: IProduct = {
 						...prev,
-						colors: [...prev.colors, color],
+						colors: colorExists
+							? prev.colors.filter((c) => c !== color)
+							: [...prev.colors, color],
 					};
+					return newProduct;
 				});
 			}}></span>
 	);

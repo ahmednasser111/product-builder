@@ -1,4 +1,4 @@
-const Colors = {
+const Colors: { [key: string]: string } = {
 	"#FF0000": "red",
 	"#0000FF": "blue",
 	"#008000": "green",

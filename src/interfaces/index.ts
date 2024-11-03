@@ -32,3 +32,7 @@ export interface IProductInputs {
 	image: string;
 	price: string;
 }
+
+export interface ICartItem extends IProduct {
+	qty: number;
+}

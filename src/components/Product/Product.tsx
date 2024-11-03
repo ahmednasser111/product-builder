@@ -5,6 +5,8 @@ import Image from "../Image/Image";
 import Button from "../ui/Button";
 import ColorCircle from "../ui/ColorCircle";
 import MyModal from "../ui/MyModal";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { add, remove } from "../../app/features/cartSlice";
 
 /**
  * Props interface for the Product component
@@ -36,6 +38,9 @@ function Product({
 	setIdx,
 	setCategory,
 }: IProps) {
+	const cart = useAppSelector((state) => state.cart.items);
+	const dispatch = useAppDispatch();
+	const { title, price, description, imgURL, category, colors } = product;
 	/**
 	 * Handles the edit action for the product.
 	 * Sets up the product for editing and opens the edit modal.
@@ -47,8 +52,6 @@ function Product({
 		setIsEditOpen(true);
 	}
 
-	const { title, price, description, imgURL, category, colors } = product;
-
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 	return (
 		<div className="rounded-md border-2 p-3 bg-neutral-100">
@@ -57,7 +60,7 @@ function Product({
 			<p className="my-5">{description}</p>
 			<div className="flex items-center gap-2 my-5">
 				{colors.map((c, i) => (
-					<ColorCircle color={c} key={i} />
+					<ColorCircle color={c} key={i} setProduct={setProductToEdit} />
 				))}
 			</div>
 			<div className="flex justify-between items-center">
@@ -68,7 +71,7 @@ function Product({
 					className="rounded-full w-8 h-8"
 				/>
 			</div>
-			<div className="flex gap-4 mt-5">
+			<div className="flex gap-4 my-2">
 				<Button className="bg-blue-900" width="flex-1" onClick={handleEdit}>
 					EDIT
 				</Button>
@@ -78,6 +81,7 @@ function Product({
 					onClick={() => setIsDeleteOpen(true)}>
 					DELETE
 				</Button>
+
 				<MyModal
 					isOpen={isDeleteOpen}
 					title="Are you sure?"
@@ -91,7 +95,7 @@ function Product({
 								const nextProducts = products.slice();
 								nextProducts.splice(idx, 1);
 								setProducts(nextProducts);
-								toast(`Product ${idx + 1} has been deleted`);
+								toast.success(`${product.title} Product has been deleted`);
 							}}>
 							Delete
 						</Button>
@@ -104,6 +108,20 @@ function Product({
 					</div>
 				</MyModal>
 			</div>
+			<div className="flex flex-col space-y-2">
+				<Button
+					className="bg-green-600 hover:bg-green-500 text-white font-semibold py-2 rounded transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
+					onClick={() => dispatch(add(product))}>
+					Add to Cart
+				</Button>
+				<Button
+					className="bg-red-600 hover:bg-red-500 text-white font-semibold py-2 rounded transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 disabled:bg-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed"
+					disabled={!cart.find((item) => item.id === product.id)}
+					onClick={() => dispatch(remove(product))}>
+					Remove from Cart
+				</Button>
+			</div>
+
 			<Toaster />
 		</div>
 	);

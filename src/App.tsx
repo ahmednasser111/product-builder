@@ -12,15 +12,8 @@ import { productValidation } from "./validation";
 import { v4 as uuidv4 } from "uuid";
 import Select from "./components/ui/Select";
 import categoryList from "./data/CategoryList";
-
-const defaultProduct: IProduct = {
-	title: "",
-	description: "",
-	imgURL: "",
-	price: "",
-	colors: [],
-	category: { id: uuidv4(), name: "", imgURL: "" },
-};
+import { defaultProduct } from "./data/defaults";
+import { useAppSelector } from "./app/hooks";
 
 const defaultErrors = {
 	title: "",
@@ -40,6 +33,7 @@ function App() {
 	const [category, setCategory] = useState(categoryList[0]);
 	const [editIndex, setEditIndex] = useState<number>(0);
 
+	const cart = useAppSelector((state) => state.cart.items);
 	const resetForm = useCallback(() => {
 		setProduct(defaultProduct);
 		setErrors(defaultErrors);
@@ -58,11 +52,23 @@ function App() {
 		setIsEditOpen(false);
 	}, [editIndex, productToEdit]);
 
-	const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		setProduct((prev: IProduct) => ({ ...prev, [name]: value }));
-		setErrors((prev) => ({ ...prev, [name]: "" }));
-	}, []);
+	const handleInputChangeAdd = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			const { name, value } = e.target;
+			setProduct((prev: IProduct) => ({ ...prev, [name]: value }));
+			setErrors((prev) => ({ ...prev, [name]: "" }));
+		},
+		[]
+	);
+
+	const handleInputChangeEdit = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			const { name, value } = e.target;
+			setProductToEdit((prev: IProduct) => ({ ...prev, [name]: value }));
+			setErrors((prev) => ({ ...prev, [name]: "" }));
+		},
+		[]
+	);
 
 	const validateAndSubmit =
 		(onSubmit: () => void, product: IProduct) => (e: FormEvent) => {
@@ -87,7 +93,8 @@ function App() {
 	const renderForm = (
 		product: IProduct,
 		updateProduct: (p: IProduct) => void,
-		onSubmit: () => void
+		onSubmit: () => void,
+		handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void
 	) => (
 		<form
 			className="flex flex-col"
@@ -117,12 +124,7 @@ function App() {
 
 			<div className="flex items-center gap-2 my-5">
 				{Object.keys(Colors).map((color) => (
-					<ColorCircle
-						key={color}
-						color={color}
-						product={product}
-						setProduct={updateProduct}
-					/>
+					<ColorCircle key={color} color={color} setProduct={updateProduct} />
 				))}
 			</div>
 
@@ -166,22 +168,35 @@ function App() {
 		<main className="container p-2">
 			<header className="flex justify-between items-center p-4 bg-gray-100 border-b border-gray-200">
 				<h1 className="text-xl font-semibold text-gray-900">Latest Products</h1>
-				<Button
-					className="bg-emerald-600 text-white font-medium py-2 px-4 rounded hover:bg-emerald-700 transition duration-200"
-					onClick={openAddModal}>
-					Add
-				</Button>
+				<div className="flex justify-between items-center space-x-5">
+					<div>Cart: {cart.length}</div>
+					<Button
+						className="bg-emerald-600 text-white font-medium py-2 px-4 rounded hover:bg-emerald-700 transition duration-200"
+						onClick={openAddModal}>
+						Add
+					</Button>
+				</div>
 			</header>
 
 			<MyModal isOpen={isOpen} onClose={resetForm} title="Add Product">
-				{renderForm(product, setProduct, handleAddProduct)}
+				{renderForm(
+					product,
+					setProduct,
+					handleAddProduct,
+					handleInputChangeAdd
+				)}
 			</MyModal>
 
 			<MyModal
 				isOpen={isEditOpen}
 				onClose={() => setIsEditOpen(false)}
 				title="Edit Product">
-				{renderForm(productToEdit, setProductToEdit, handleEditProduct)}
+				{renderForm(
+					productToEdit,
+					setProductToEdit,
+					handleEditProduct,
+					handleInputChangeEdit
+				)}
 			</MyModal>
 
 			<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 p-2">
@@ -189,6 +204,8 @@ function App() {
 					<Product
 						key={product.id}
 						product={product}
+						products={products}
+						setProducts={setProducts}
 						setProductToEdit={setProductToEdit}
 						setIsEditOpen={openEditModal}
 						idx={idx}
