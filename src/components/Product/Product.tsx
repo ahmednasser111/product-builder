@@ -8,9 +8,6 @@ import MyModal from "../ui/MyModal";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { add, remove } from "../../app/features/cartSlice";
 
-/**
- * Props interface for the Product component
- */
 interface IProps {
 	product: IProduct;
 	setProducts: (products: IProduct[]) => void;
@@ -60,7 +57,12 @@ function Product({
 			<p className="my-5">{description}</p>
 			<div className="flex items-center gap-2 my-5">
 				{colors.map((c, i) => (
-					<ColorCircle color={c} key={i} setProduct={setProductToEdit} />
+					<ColorCircle
+						color={c}
+						key={i}
+						setProduct={setProductToEdit}
+						product={product}
+					/>
 				))}
 			</div>
 			<div className="flex justify-between items-center">
