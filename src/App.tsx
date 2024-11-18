@@ -124,7 +124,12 @@ function App() {
 
 			<div className="flex items-center gap-2 my-5">
 				{Object.keys(Colors).map((color) => (
-					<ColorCircle key={color} color={color} setProduct={updateProduct} />
+					<ColorCircle
+						key={color}
+						color={color}
+						setProduct={updateProduct}
+						product={product}
+					/>
 				))}
 			</div>
 
