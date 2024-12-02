@@ -1,10 +1,4 @@
-import {
-	ChangeEvent,
-	FormEvent,
-	useCallback,
-	useEffect,
-	useState,
-} from "react";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import Product from "./components/Product/Product";
 import Button from "./components/ui/Button";
 import ColorCircle from "./components/ui/ColorCircle";
@@ -19,8 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import Select from "./components/ui/Select";
 import categoryList from "./data/CategoryList";
 import { defaultProduct } from "./data/defaults";
-import { useAppSelector, useAppDispatch } from "./app/hooks";
-import { getProductList } from "./app/features/ProductsSlice";
+import { useAppSelector } from "./app/hooks";
 
 const defaultErrors = {
 	title: "",
@@ -41,13 +34,6 @@ function App() {
 	const [editIndex, setEditIndex] = useState<number>(0);
 
 	const cart = useAppSelector((state) => state.cart.items);
-	const productList = useAppSelector((state) => state.products.list);
-	const dispatch = useAppDispatch();
-
-	useEffect(() => {
-		dispatch(getProductList());
-	}, [dispatch]);
-
 	const resetForm = useCallback(() => {
 		setProduct(defaultProduct);
 		setErrors(defaultErrors);
@@ -219,7 +205,7 @@ function App() {
 			</MyModal>
 
 			<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 p-2">
-				{productList.map((product, idx) => (
+				{products.map((product, idx) => (
 					<Product
 						key={product.id}
 						product={product}
