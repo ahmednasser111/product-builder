@@ -17,7 +17,6 @@ export const cartSlice = createSlice({
 	reducers: {
 		add: (state, action: PayloadAction<IProduct>) => {
 			const exists = state.items.find((item) => action.payload.id === item.id);
-			console.log(exists);
 			if (exists) {
 				exists.qty++;
 			} else {
